@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        romantic: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        starlight: '#fff9d6',
+                        cosmicPurple: '#110726',
+                        cosmicDeep: '#070312',
+                        goldGlow: '#ffd700'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+body {
+    margin: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 30%,
+            rgba(125, 65, 205, 0.42) 0%,
+            transparent 52%),
+        radial-gradient(ellipse at 12% 82%,
+            rgba(91, 42, 170, 0.34) 0%,
+            transparent 46%),
+        radial-gradient(ellipse at 88% 72%,
+            rgba(170, 48, 135, 0.22) 0%,
+            transparent 42%),
+        linear-gradient(160deg,
+            #03020b 0%,
+            #160a30 48%,
+            #080414 100%);
+    color: #fff;
+    user-select: none;
+    font-family: 'Outfit', sans-serif;
+}
+
+
+        /* 5-Point Star Geometry Shape */
+        .star-shape {
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%, 
+                79% 91%, 50% 70%, 21% 91%, 32% 57%, 
+                2% 35%, 39% 35%
+            );
+        }
+
+        /* Pulsing & Glowing Moon */
+        .moon-glow {
+            box-shadow: 0 0 50px rgba(255, 245, 200, 0.6), inset -10px -10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Ambient Glow Nebula Overlay */
+        .nebula {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Cards & Modals */
+        .glass-panel {
+            background: rgba(18, 10, 38, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Highly Shiny Sparkling Interactive Stars */
+        .shiny-interactive-star {
+            cursor: pointer;
+            animation: starSparkleGlow 2s infinite alternate ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .shiny-interactive-star:hover {
+            transform: translate(-50%, -50%) scale(1.6) rotate(15deg) !important;
+            filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 45px #ec4899) drop-shadow(0 0 60px #ffd700) !important;
+        }
+
+        /* Keyframe animation for vivid shimmering star light */
+        @keyframes starSparkleGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 10px #ffd700) drop-shadow(0 0 20px #f43f5e) brightness(1.3);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.25) rotate(10deg);
+                filter: drop-shadow(0 0 20px #ffffff) drop-shadow(0 0 35px #ec4899) brightness(1.9);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
+                filter: drop-shadow(0 0 15px #3b82f6) drop-shadow(0 0 30px #fbbf24) brightness(1.6);
+            }
+        }
+
+        /* Custom Scrollbar for list */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(236, 72, 153, 0.4);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(236, 72, 153, 0.7);
+        }
+	
+/* A dreamy, gently floating moon */
+#moonElement {
+    animation: moonFloat 4s ease-in-out infinite !important;
+    will-change: transform, filter;
+    box-shadow:
+        0 0 35px rgba(255, 235, 175, 0.65),
+        0 0 85px rgba(255, 210, 140, 0.42),
+        0 0 135px rgba(174, 119, 255, 0.28),
+        inset -10px -10px 20px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes moonFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-18px) scale(1.04);
+    }
+}
+
+/* Softer, more elegant star glow */
+.shiny-interactive-star {
+    filter:
+        drop-shadow(0 0 8px rgba(255, 218, 130, 0.8))
+        drop-shadow(0 0 20px rgba(192, 132, 252, 0.35));
+}
+
+/* Smooth appearance for the title */
+header h1 {
+    animation: titleReveal 1.6s ease-out both;
+}
+
+@keyframes titleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    #moonElement,
+    header h1 {
+        animation: none;
+    }
+}
+
+    </style>
+</head>
+<body class="h-screen w-screen relative overflow-hidden flex flex-col justify-between">
+
+    <!-- Background Canvas for Shooting Stars -->
+    <canvas id="starCanvas" class="absolute inset-0 z-0 pointer-events-none"></canvas>
+    
+    <!-- Heart Particle Canvas -->
+    <canvas id="particleCanvas" class="absolute inset-0 z-10 pointer-events-none"></canvas>
+
+    <!-- Nebula Ambient Background Layer -->
+    <div class="nebula z-0"></div>
+
+    <!-- Top Navigation / Title Header -->
+    <header class="relative z-20 w-full p-4 md:p-6 flex justify-between items-center bg-gradient-to-b from-black/40 to-transparent">
+        <div class="flex items-center gap-3">
+            
+        </div>
+
+        <div class="text-center pointer-events-auto">
+            <h1 class="font-romantic text-3xl sm:text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-300 to-amber-100 drop-shadow-[0_2px_10px_rgba(236,72,153,0.5)]">
+                Happy Birthday Samriddhi 
+            </h1>
+            <p class="text-xs sm:text-sm text-pink-200/80 tracking-widest uppercase font-light mt-1">
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            
+        </div>
+    </header>
+
+    <!-- Interactive Night Sky Container for Background Stars and Interactive Shiny Star Nodes -->
+    <div id="skyContainer" class="absolute inset-0 z-20 overflow-hidden pointer-events-auto">
+        <!-- Crescent Moon Element -->
+        <div class="absolute top-20 right-[10%] w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-amber-100 to-amber-200 moon-glow cursor-pointer transition-transform duration-500 hover:scale-105 opacity-90 flex items-center justify-center" id="moonElement" title="Click for a special wish!">
+            <div class="w-full h-full rounded-full bg-cosmicDeep/40 absolute -top-1 -right-2"></div>
+            <i class="fas fa-heart text-pink-400/30 text-2xl animate-pulse"></i>
+        </div>
+    </div>
+
+    <!-- Footer Tip Bar -->
+    <footer class="relative z-20 w-full p-4 text-center text-xs sm:text-sm text-pink-200/70 glass-panel border-t border-white/10 pointer-events-auto flex justify-between items-center px-6">
+        <p class="w-full text-center">
+            <i class="fas fa-sparkles text-amber-300 animate-pulse me-1"></i>
+            Click on any shiny star to open a sweet surprise or link!
+        </p>
+    </footer>
+
+    <!-- STAR LINK DISPLAY MODAL -->
+    <div id="starModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md hidden transition-opacity duration-300">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-6 md:p-8 relative border border-pink-500/30 shadow-2xl transform transition-all scale-95 opacity-0 duration-300" id="modalCard">
+            <!-- Close Button -->
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Modal Content -->
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-pink-500 to-amber-300 flex items-center justify-center text-cosmicDeep text-2xl shadow-lg shadow-pink-500/30" id="modalIconContainer">
+                    <i id="modalIcon" class="fas fa-star"></i>
+                </div>
+
+                <h3 id="modalTitle" class="font-romantic text-3xl text-amber-200 mb-2">
+                    Star Memory
+                </h3>
+
+                <p id="modalNote" class="text-pink-100/90 text-sm md:text-base leading-relaxed mb-6 italic">
+                    "Every star in the sky represents a reason why I adore you so much."
+                </p>
+
+                <div class="space-y-3">
+                    <a id="modalLinkBtn" href="#" target="_blank" rel="noopener" class="w-full block py-3 px-6 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-medium shadow-lg shadow-pink-500/25 transition-all transform hover:-translate-y-0.5">
+                        <i class="fas fa-external-link-alt me-2"></i> Open Surprise Link
+                    </a>
+                    
+                    <button id="copyLinkBtn" class="w-full py-2.5 px-4 rounded-xl glass-panel text-pink-200 hover:text-white hover:bg-white/10 text-xs transition-all border border-white/10">
+                        <i class="fas fa-copy me-1"></i> Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMIZATION / CONFIGURATION PANEL MODAL -->
+    
+
+    <script>
+    /* Interactive Stars Configuration */
+    const DEFAULT_STARS = [
+        {
+            id: 'center-main-star',
+            title: 'Wish',
+            url: 'wish.html',
+            icon: 'fa-star',
+            isCenter: true,
+            x: 50,
+            y: 28
+        },
+        
+	{
+    		id: 'star-2',
+    		title: 'Photo Gallery 📸',
+    		url: 'gallery.html',
+    		icon: 'fa-heart',
+    		x: 75,
+    		y: 32
+	},
+
+        {
+            id: 'star-3',
+            title: 'A song',
+            url: 'song.html',
+            icon: 'fa-camera-retro',
+            x: 32,
+            y: 55
+        },
+        
+        {
+            id: 'star-5',
+            title: 'I love you💌',
+            url: 'reasons.html',
+            icon: 'fa-envelope-open-text',
+            x: 15,
+            y: 70
+        },
+        {
+            id: 'star-6',
+            title: 'Edit 🎥',
+            url: 'edit.html',
+            icon: 'fa-video',
+            x: 62,
+            y: 75
+        }
+    ];
+
+    let starsData = [];
+
+    // Canvas Contexts
+    const bgCanvas = document.getElementById('starCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    const pCanvas = document.getElementById('particleCanvas');
+    const pCtx = pCanvas.getContext('2d');
+
+    let shootingStars = [];
+    let heartParticles = [];
+
+    function loadStarsData() {
+        starsData = JSON.parse(JSON.stringify(DEFAULT_STARS));
+    }
+
+    function resizeCanvases() {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+        pCanvas.width = window.innerWidth;
+        pCanvas.height = window.innerHeight;
+    }
+
+    // Generate Background Stars
+    function renderBackgroundFivePointStars() {
+        const container = document.getElementById('skyContainer');
+        const existingBgStars = container.querySelectorAll('.bg-star-element');
+        existingBgStars.forEach(node => node.remove());
+
+        const count = Math.floor((window.innerWidth * window.innerHeight) / 4500);
+        for (let i = 0; i < count; i++) {
+            const starEl = document.createElement('div');
+            const size = Math.random() * 8 + 5;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const opacity = Math.random() * 0.7 + 0.3;
+            const duration = Math.random() * 3 + 2;
+
+            starEl.className = 'bg-star-element star-shape absolute pointer-events-none bg-amber-100/90';
+            starEl.style.left = `${x}%`;
+            starEl.style.top = `${y}%`;
+            starEl.style.width = `${size}px`;
+            starEl.style.height = `${size}px`;
+            starEl.style.opacity = opacity;
+            starEl.style.animation = `pulse ${duration}s infinite ease-in-out`;
+
+            container.appendChild(starEl);
+        }
+    }
+
+    // Draw Shooting Stars Canvas
+    function drawBackground() {
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+        if (Math.random() < 0.015 && shootingStars.length < 3) {
+            shootingStars.push({
+                x: Math.random() * bgCanvas.width * 0.8,
+                y: Math.random() * (bgCanvas.height * 0.4),
+                length: Math.random() * 80 + 40,
+                speed: Math.random() * 10 + 6,
+                angle: Math.PI / 4,
+                alpha: 1
+            });
+        }
+
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+            let s = shootingStars[i];
+            let endX = s.x - Math.cos(s.angle) * s.length;
+            let endY = s.y - Math.sin(s.angle) * s.length;
+
+            let grad = bgCtx.createLinearGradient(s.x, s.y, endX, endY);
+            grad.addColorStop(0, `rgba(255, 255, 220, ${s.alpha})`);
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            bgCtx.beginPath();
+            bgCtx.moveTo(s.x, s.y);
+            bgCtx.lineTo(endX, endY);
+            bgCtx.strokeStyle = grad;
+            bgCtx.lineWidth = 2;
+            bgCtx.stroke();
+
+            s.x += Math.cos(s.angle) * s.speed;
+            s.y += Math.sin(s.angle) * s.speed;
+            s.alpha -= 0.015;
+
+            if (s.alpha <= 0 || s.x > bgCanvas.width || s.y > bgCanvas.height) {
+                shootingStars.splice(i, 1);
+            }
+        }
+
+        requestAnimationFrame(drawBackground);
+    }
+
+    function spawnHearts(x, y) {
+        const count = 18;
+        for (let i = 0; i < count; i++) {
+            heartParticles.push({
+                x: x,
+                y: y,
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.7) * 4,
+                size: Math.random() * 12 + 8,
+                alpha: 1,
+                rotation: Math.random() * Math.PI * 2,
+                rotSpeed: (Math.random() - 0.5) * 0.1,
+                color: ['#ec4899', '#f43f5e', '#fb7185', '#ffd700'][Math.floor(Math.random() * 4)]
+            });
+        }
+    }
+
+    function drawHearts() {
+        pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+        for (let i = heartParticles.length - 1; i >= 0; i--) {
+            let p = heartParticles[i];
+            pCtx.save();
+            pCtx.translate(p.x, p.y);
+            pCtx.rotate(p.rotation);
+            pCtx.globalAlpha = p.alpha;
+            pCtx.fillStyle = p.color;
+
+            pCtx.beginPath();
+            let topCurveHeight = p.size * 0.3;
+            pCtx.moveTo(0, topCurveHeight);
+            pCtx.bezierCurveTo(0, 0, -p.size / 2, 0, -p.size / 2, topCurveHeight);
+            pCtx.bezierCurveTo(-p.size / 2, (p.size + topCurveHeight) / 2, 0, p.size, 0, p.size);
+            pCtx.bezierCurveTo(0, p.size, p.size / 2, (p.size + topCurveHeight) / 2, p.size / 2, topCurveHeight);
+            pCtx.bezierCurveTo(p.size / 2, 0, 0, 0, 0, topCurveHeight);
+            pCtx.closePath();
+            pCtx.fill();
+
+            pCtx.restore();
+
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rotation += p.rotSpeed;
+            p.alpha -= 0.02;
+
+            if (p.alpha <= 0) {
+                heartParticles.splice(i, 1);
+            }
+        }
+
+        requestAnimationFrame(drawHearts);
+    }
+
+    // Render Interactive Star Nodes
+    function renderStarNodes() {
+        const container = document.getElementById('skyContainer');
+        const existingStars = container.querySelectorAll('.interactive-star-node');
+        existingStars.forEach(node => node.remove());
+
+        starsData.forEach((star) => {
+            const node = document.createElement('div');
+            node.className = 'interactive-star-node absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group z-30';
+            node.style.left = `${star.x}%`;
+            node.style.top = `${star.y}%`;
+
+            const sizePx = star.isCenter ? 32 : 22;
+
+            node.innerHTML = `
+                <div class="relative flex items-center justify-center">
+                    <div class="shiny-interactive-star star-shape bg-gradient-to-tr from-amber-200 via-amber-100 to-white shadow-2xl" style="width: ${sizePx}px; height: ${sizePx}px;"></div>
+                    <i class="fas ${star.icon || 'fa-star'} text-[10px] text-yellow-900 absolute pointer-events-none"></i>
+                </div>
+                <span class="${star.isCenter ? 'mt-2 text-xs md:text-sm font-semibold tracking-wide text-amber-200 bg-cosmicPurple/90 px-3 py-1 rounded-full border border-amber-400/40 backdrop-blur-sm shadow-xl whitespace-nowrap' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute top-8 text-[11px] text-pink-100 bg-cosmicDeep/90 px-2.5 py-1 rounded-lg border border-pink-500/30 backdrop-blur-sm whitespace-nowrap pointer-events-none shadow-xl'}">
+                    ${star.title}
+                </span>
+            `;
+
+            node.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const rect = node.getBoundingClientRect();
+                spawnHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                if (star.url) {
+                    window.open(star.url, '_blank');
+                }
+            });
+
+            container.appendChild(node);
+        });
+    }
+
+    window.addEventListener('load', () => {
+        loadStarsData();
+        resizeCanvases();
+        renderBackgroundFivePointStars();
+        drawBackground();
+        drawHearts();
+        renderStarNodes();
+
+        window.addEventListener('resize', () => {
+            resizeCanvases();
+            renderBackgroundFivePointStars();
+        });
+
+        // Moon Click Event
+        document.getElementById('moonElement').addEventListener('click', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            spawnHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            window.open('moon.html', '_blank');
+        });
+    });
+</script>
+</body>
+</html>

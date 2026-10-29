@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Universe ✨</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    background:
+        radial-gradient(ellipse at 50% 0%, #251343, transparent 55%),
+        radial-gradient(ellipse at bottom, #1b1035, #090414 80%);
+    overflow-x: hidden;
+}
+
+#starCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nebula {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 15% 30%, #9333ea20, transparent 40%),
+        radial-gradient(circle at 85% 70%, #ec489920, transparent 45%),
+        radial-gradient(circle at 50% 50%, #3b82f615, transparent 50%);
+}
+
+.glass {
+    background: rgba(18, 10, 38, .76);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.gold-text {
+    background: linear-gradient(100deg, #fff1b8, #f9b9d6, #ffe9a1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.gallery-card {
+    background: linear-gradient(145deg, #24123b, #100820);
+    border: 1px solid rgba(255, 190, 255, .35);
+    box-shadow: 0 0 16px rgba(192, 80, 255, .08);
+    transition: transform .35s ease, box-shadow .35s ease,
+                border-color .35s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-7px);
+    border-color: #f9a8d4;
+    box-shadow: 0 0 24px rgba(236,72,153,.2),
+                0 0 38px rgba(168,85,247,.12);
+}
+
+.photo-wrap {
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: #160d29;
+    cursor: zoom-in;
+}
+
+.photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .55s ease, filter .4s ease;
+}
+
+.gallery-card:hover .photo-wrap img {
+    transform: scale(1.06);
+    filter: brightness(1.08);
+}
+
+.star-glow {
+    animation: twinkle 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes twinkle {
+    from { opacity: .45; transform: scale(.85); }
+    to {
+        opacity: 1;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 9px #ffd700);
+    }
+}
+
+.moon {
+    position: fixed;
+    width: 76px;
+    height: 76px;
+    top: 105px;
+    right: 8%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff9d6, #f7d98b);
+    box-shadow: 0 0 45px #fff1b844;
+    opacity: .85;
+    pointer-events: none;
+}
+
+.moon::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -14px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #110a20;
+}
+
+.viewer {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.viewer.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.viewer img {
+    max-width: 90vw;
+    max-height: 76vh;
+    object-fit: contain;
+}
+
+.viewer-arrow {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e9a8ff80;
+    border-radius: 50%;
+    color: white;
+    background: #180d2bd9;
+    transition: background .2s;
+}
+
+.viewer-arrow:hover { background: #8b3dc9; }
+
+@media (max-width: 640px) {
+    .moon {
+        width: 48px;
+        height: 48px;
+        top: 100px;
+        right: 5%;
+        opacity: .5;
+    }
+
+    .moon::after {
+        width: 46px;
+        height: 46px;
+        top: -5px;
+        right: -9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* === Cosmic theme enhancement: visuals only; existing content and behavior unchanged === */
+body {
+    background:
+        radial-gradient(ellipse at 50% 30%,
+            rgba(125, 65, 205, 0.42) 0%,
+            transparent 52%),
+        radial-gradient(ellipse at 12% 82%,
+            rgba(91, 42, 170, 0.34) 0%,
+            transparent 46%),
+        radial-gradient(ellipse at 88% 72%,
+            rgba(170, 48, 135, 0.22) 0%,
+            transparent 42%),
+        linear-gradient(160deg,
+            #03020b 0%,
+            #160a30 48%,
+            #080414 100%);
+    background-attachment: fixed;
+}
+
+.nebula {
+    background:
+        radial-gradient(circle at 18% 28%, rgba(147, 51, 234, 0.23) 0%, transparent 42%),
+        radial-gradient(circle at 82% 72%, rgba(236, 72, 153, 0.18) 0%, transparent 46%),
+        radial-gradient(circle at 52% 48%, rgba(59, 130, 246, 0.12) 0%, transparent 52%);
+    animation: nebulaDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaDrift {
+    from { transform: scale(1); opacity: .72; }
+    to { transform: scale(1.08); opacity: 1; }
+}
+
+.moon {
+    animation: galleryMoonFloat 6s ease-in-out infinite;
+    box-shadow:
+        0 0 28px rgba(255, 235, 175, .45),
+        0 0 68px rgba(255, 210, 140, .24),
+        0 0 110px rgba(174, 119, 255, .15);
+}
+
+.moon::after {
+    background: #100821;
+    box-shadow: -8px 5px 24px rgba(174, 119, 255, .08);
+}
+
+@keyframes galleryMoonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+.gallery-card {
+    background: linear-gradient(145deg, rgba(36, 18, 59, .94), rgba(9, 4, 22, .96));
+    border-color: rgba(226, 180, 255, .38);
+    box-shadow: 0 0 18px rgba(147, 51, 234, .12);
+}
+
+.gallery-card:hover {
+    box-shadow:
+        0 0 26px rgba(236, 72, 153, .23),
+        0 0 42px rgba(168, 85, 247, .18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .moon, .nebula { animation: none !important; }
+}
+
+    </style>
+</head>
+
+<body>
+<canvas id="starCanvas"></canvas>
+<div class="nebula"></div>
+<div class="moon"></div>
+
+<!-- Header -->
+<header class="relative z-10 flex items-center justify-between px-5 py-6 sm:px-8">
+    <a href="index.html"
+       class="text-sm text-pink-200/80 hover:text-amber-200 transition">
+        <i class="fas fa-arrow-left mr-2"></i> Back to the stars
+    </a>
+    <span class="text-xs tracking-widest uppercase text-amber-100/60">
+        Made with ♡
+    </span>
+</header>
+
+<main class="relative z-10 max-w-7xl mx-auto px-5 pb-12">
+
+    <!-- Title -->
+    <section class="text-center pt-5 pb-10 sm:pt-8 sm:pb-12">
+        <div class="flex justify-center gap-5 items-center mb-3">
+            <i class="fas fa-star text-amber-200 star-glow"></i>
+            <i class="fas fa-heart text-pink-300 text-xl"></i>
+            <i class="fas fa-star text-amber-200 star-glow"></i>
+        </div>
+
+        <h1 class="gold-text text-5xl sm:text-7xl"
+            style="font-family:'Dancing Script',cursive">
+            My Universe
+        </h1>
+
+        <p class="text-pink-200/80 text-xs sm:text-sm tracking-[.25em] uppercase mt-4">
+            
+        </p>
+
+        <p class="text-pink-100/75 text-sm sm:text-base mt-5 italic">
+            
+        </p>
+    </section>
+
+    <!-- Five photos -->
+    <section id="gallery"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+
+        <!-- PHOTO 1 -->
+        <article class="gallery-card rounded-2xl p-2.5">
+            <div class="photo-wrap rounded-xl"
+                 role="button" tabindex="0" aria-label="View photo 1">
+                <img src="pic1.jpg"
+                     alt="Memory one" loading="eager">
+            </div>
+            <div class="text-center py-4">
+                <i class="fas fa-star text-amber-200 text-sm star-glow"></i>
+                <h2 class="text-pink-100 mt-2 text-sm"></h2>
+                <p class="text-white/40 text-xs mt-1"></p>
+            </div>
+        </article>
+
+        <!-- PHOTO 2 -->
+        <article class="gallery-card rounded-2xl p-2.5">
+            <div class="photo-wrap rounded-xl"
+                 role="button" tabindex="0" aria-label="View photo 2">
+                <img src="pic2.jpg"
+                     alt="Memory two" loading="lazy">
+            </div>
+            <div class="text-center py-4">
+                <i class="fas fa-heart text-pink-300 text-sm"></i>
+                <h2 class="text-pink-100 mt-2 text-sm"></h2>
+                <p class="text-white/40 text-xs mt-1"></p>
+            </div>
+        </article>
+
+        <!-- PHOTO 3 -->
+        <article class="gallery-card rounded-2xl p-2.5">
+            <div class="photo-wrap rounded-xl"
+                 role="button" tabindex="0" aria-label="View photo 3">
+                <img src="pic3.jpg"
+                     alt="Memory three" loading="lazy">
+            </div>
+            <div class="text-center py-4">
+                <i class="fas fa-moon text-amber-200 text-sm"></i>
+                <h2 class="text-pink-100 mt-2 text-sm"></h2>
+                <p class="text-white/40 text-xs mt-1"></p>
+            </div>
+        </article>
+
+        <!-- PHOTO 4 -->
+        <article class="gallery-card rounded-2xl p-2.5">
+            <div class="photo-wrap rounded-xl"
+                 role="button" tabindex="0" aria-label="View photo 4">
+                <img src="pic4.jpg"
+                     alt="Memory four" loading="lazy">
+            </div>
+            <div class="text-center py-4">
+                <i class="fas fa-sparkles text-amber-200 text-sm">💖</i>
+                <h2 class="text-pink-100 mt-2 text-sm"></h2>
+                <p class="text-white/40 text-xs mt-1"></p>
+            </div>
+        </article>
+
+        <!-- PHOTO 5 -->
+        <article class="gallery-card rounded-2xl p-2.5">
+            <div class="photo-wrap rounded-xl"
+                 role="button" tabindex="0" aria-label="View photo 5">
+                <img src="pic5.jpg"
+                     alt="Memory five" loading="lazy">
+            </div>
+            <div class="text-center py-4">
+                <i class="fas fa-star text-amber-200 text-sm star-glow"></i>
+                <h2 class="text-pink-100 mt-2 text-sm"></h2>
+                <p class="text-white/40 text-xs mt-1"></p>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Decorative divider -->
+    <div class="flex justify-center items-center gap-4 my-12">
+        <div class="h-px w-20 sm:w-32 bg-gradient-to-r from-transparent to-pink-400/70"></div>
+        <i class="fas fa-star text-amber-200 text-xl star-glow"></i>
+        <div class="h-px w-20 sm:w-32 bg-gradient-to-l from-transparent to-pink-400/70"></div>
+    </div>
+
+    <p class="text-center font-romantic text-3xl text-amber-100"
+       style="font-family:'Dancing Script',cursive">
+        If memories were stars, this sky would never be dark. ✨
+    </p>
+</main>
+
+<footer class="relative z-10 glass border-t border-white/10 mx-4 sm:mx-8 mb-5 rounded-2xl p-4 text-center text-xs sm:text-sm text-pink-200/70">
+    <i class="fas fa-sparkles text-amber-200 mr-2"></i>
+    Click on any picture to see it under its own little spotlight.
+    <i class="fas fa-heart text-pink-300 ml-2"></i>
+</footer>
+
+<!-- Fullscreen photo viewer -->
+<div id="viewer"
+     class="viewer fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+     role="dialog" aria-modal="true" aria-label="Photo viewer">
+
+    <button id="closeViewer"
+        class="absolute top-5 right-5 text-white text-3xl w-12 h-12"
+        aria-label="Close photo viewer">&times;</button>
+
+    <button id="prevPhoto"
+        class="viewer-arrow absolute left-3 sm:left-8"
+        aria-label="Previous photo">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="flex flex-col items-center gap-4">
+        <img id="viewerImage" src="" alt="Enlarged memory"
+             class="rounded-xl shadow-2xl">
+        <p id="viewerCaption" class="text-pink-200 text-sm"></p>
+        <p id="viewerCount" class="text-white/40 text-xs"></p>
+    </div>
+
+    <button id="nextPhoto"
+        class="viewer-arrow absolute right-3 sm:right-8"
+        aria-label="Next photo">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+</div>
+
+<script>
+    // Twinkling cosmic background
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let frame;
+
+    function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        stars = Array.from({
+            length: Math.min(180,
+                Math.floor(window.innerWidth * window.innerHeight / 6500))
+        }, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: Math.random() * 1.4 + .3,
+            phase: Math.random() * 6.28,
+            speed: Math.random() * .02 + .003
+        }));
+    }
+
+    function drawStars() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        stars.forEach(s => {
+            s.phase += s.speed;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,240,210,${.3 + .7 * (Math.sin(s.phase) + 1) / 2})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ffd700';
+            ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+        frame = requestAnimationFrame(drawStars);
+    }
+
+    resizeCanvas();
+    drawStars();
+
+    window.addEventListener('resize', resizeCanvas);
+
+    document.addEventListener('visibilitychange', () => {
+        cancelAnimationFrame(frame);
+        if (!document.hidden) drawStars();
+    });
+
+    // Gallery and fullscreen viewer
+    const cards = [...document.querySelectorAll('.gallery-card')];
+    const viewer = document.getElementById('viewer');
+    const viewerImage = document.getElementById('viewerImage');
+    const viewerCaption = document.getElementById('viewerCaption');
+    const viewerCount = document.getElementById('viewerCount');
+
+    let current = 0;
+    let previousFocus = null;
+
+    function showPhoto(index) {
+        current = (index + cards.length) % cards.length;
+        const img = cards[current].querySelector('img');
+        const caption = cards[current].querySelector('h2');
+
+        viewerImage.src = img.src;
+        viewerImage.alt = img.alt;
+        viewerCaption.textContent = caption.textContent;
+        viewerCount.textContent = `${current + 1} / ${cards.length}`;
+    }
+
+    function openViewer(index) {
+        previousFocus = document.activeElement;
+        showPhoto(index);
+        viewer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('closeViewer').focus();
+    }
+
+    function closeViewer() {
+        viewer.classList.remove('open');
+        document.body.style.overflow = '';
+        if (previousFocus) previousFocus.focus();
+    }
+
+    cards.forEach((card, index) => {
+        const photo = card.querySelector('.photo-wrap');
+
+        photo.addEventListener('click', () => openViewer(index));
+        photo.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openViewer(index);
+            }
+        });
+    });
+
+    document.getElementById('closeViewer')
+        .addEventListener('click', closeViewer);
+
+    document.getElementById('prevPhoto')
+        .addEventListener('click', () => showPhoto(current - 1));
+
+    document.getElementById('nextPhoto')
+        .addEventListener('click', () => showPhoto(current + 1));
+
+    viewer.addEventListener('click', e => {
+        if (e.target === viewer) closeViewer();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (!viewer.classList.contains('open')) return;
+
+        if (e.key === 'Escape') closeViewer();
+        if (e.key === 'ArrowLeft') showPhoto(current - 1);
+        if (e.key === 'ArrowRight') showPhoto(current + 1);
+    });
+</script>
+</body>
+</html>
