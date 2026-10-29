@@ -496,7 +496,7 @@ header h1 {
                 const rect = node.getBoundingClientRect();
                 spawnHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
                 if (star.url) {
-                    window.open(star.url, '_blank');
+                    window.location.href = star.url;
                 }
             });
 
@@ -521,7 +521,7 @@ header h1 {
         document.getElementById('moonElement').addEventListener('click', (e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             spawnHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
-            window.open('moon.html', '_blank');
+            window.location.href = 'moon.html';
         });
     });
 </script>
